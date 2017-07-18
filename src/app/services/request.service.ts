@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import {Requests} from '../classes/requests';
@@ -12,6 +12,13 @@ export class RequestService {
 
   public getRequests(): Promise<Requests[]> {
     return this.http.get('http://localhost:3001')
+      .toPromise()
+      .then(response => response.json() as Requests[])
+      .catch(this.handleError);
+  }
+
+  public acceptRequest(id: string): Promise<Requests[]> {
+    return this.http.get(`http://localhost:3001/${id}`)
       .toPromise()
       .then(response => response.json() as Requests[])
       .catch(this.handleError);

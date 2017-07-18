@@ -1,14 +1,21 @@
 <app-toolbar></app-toolbar>
-
+<button (click)="load()">Reload</button>
 <div class="app-content">
   <md-card>
     <md-list>
-      <h3 md-subheader>Folders</h3>
-      <md-list-item>
-        <md-icon md-list-icon>folder</md-icon>
-        <h4 md-line>folder.name</h4>
-        <p md-line> folder.updated | date </p>
-      </md-list-item>
+      <h3 md-subheader>Requests</h3>
+      <div *ngFor="let item of list">
+        <md-divider></md-divider>
+        <md-list-item>
+          <h4 md-line>{{item.method}} - {{item.url}}</h4>
+          <pre md-line>{{item.headers | json}}</pre>
+          <pre md-line>{{item.createdAt}}</pre>
+          <pre md-line>{{item.updatedAt}}</pre>
+          <div md-line>
+            <button md-button (click)="accept(item._id)">Accept</button>
+          </div>
+        </md-list-item>
+      </div>
     </md-list>
   </md-card>
 </div>
